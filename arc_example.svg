@@ -1,0 +1,8 @@
+<svg height="200" width="200" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-width="5" fill-opacity="0" stroke="black"  d="M 125 100 A 25 25 0 0 0 100 75" />
+    <path stroke-width="5" fill-opacity="0" stroke="purple" d="M 125 100 A 25 25 0 0 1 100 75" />
+    <path stroke-width="5" fill-opacity="0" stroke="green"  d="M 125 100 A 25 25 0 1 0 100 75" />
+    <path stroke-width="5" fill-opacity="0" stroke="blue"   d="M 125 100 A 25 25 0 1 1 100 75" />
+    <circle fill="red" stroke="red" cx="100" cy="75" r="2" />
+    <circle fill="red" stroke="red" cx="125" cy="100" r="2" />
+</svg>
