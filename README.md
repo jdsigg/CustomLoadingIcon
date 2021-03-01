@@ -6,3 +6,5 @@ An example of how you can combine React, CSS, SVGs, and a little bit of math to 
 Here is an example of what this might look like:
 
 ![Loading Icon](https://raw.githubusercontent.com/jdsigg/CustomLoadingIcon/main/load-4.gif)
+
+You can take this source code and CSS and paste it directly into a react app.
