@@ -3,29 +3,27 @@ import React from 'react';
 
 
 export default class App extends React.Component {
+
   constructor(props) {
     super(props);
-	
+
     this.state = {
       angle: 0,
-      rX: 50,
-      rY: 50,
-      xRot: 0,
+      rX: 25,
+      rY: 25,
       largeArcFl: 0,
       sweepFl: 0,
-      x: 0,
-      y: 0,
-      xS: 250,
-      yS: 200,
-      center : {
-        x: 200,
-        y: 200
-      },
-    }
+      x: 100,
+      y: 75,
+      center: {
+        x: 100,
+        y: 100
+      }
+    };
   }
 
-  _trigger_changeArc = () => {
-    const { center, angle, sweepFl, rX, rY } = this.state;
+  _animate = () => {
+    const { center, angle, rX, rY, sweepFl } = this.state;
 
     var newAngle = angle + Math.PI / 180;
     var sF = sweepFl;
@@ -38,39 +36,48 @@ export default class App extends React.Component {
     const y = center.y + rY * Math.sin(newAngle);
 
     this.setState({
-      x, y,
-      sweepFl: sF,
+      x,
+      y,
       angle: newAngle,
+      sweepFl: sF,
       largeArcFl: (sF === 0 ?
-                    ((newAngle >= 0 && newAngle < Math.PI) ? 1 : 0)
+                    ((newAngle >= 0 && newAngle < Math.PI) ? 1 : 0 )
                     :
-                    ((newAngle >= 0 && newAngle < Math.PI) ? 0 : 1)
+                    ((newAngle >= 0 && newAngle < Math.PI) ? 0 : 1 )
                   )
     }, () => {
-      //depending on how far the angle is from Math.PI, "bounce" slower
-      var bounce = Math.pow((Math.abs((newAngle - Math.PI)) / Math.PI), 4); //Number between 0 and 1, skewed by N^4
-      bounce = Math.floor((bounce * 100 / 10)) + 5; //Between 5 and 15
-      setTimeout(this._trigger_changeArc, bounce)
+
+      //represent the new timeout
+      var chase = Math.pow((Math.abs(newAngle - Math.PI) / Math.PI), 4); //[0, 1]
+      //[0, 100]
+      //[0, 10]
+      //[5, 15]
+      chase = Math.floor((chase * 100 / 10)) + 5;
+
+      setTimeout(this._animate, chase)
     })
   }
 
   componentDidMount() {
-    this._trigger_changeArc();
+    this._animate();
   }
 
   render() {
-    const { rX, rY, xRot, largeArcFl, sweepFl, x, y, xS, yS } = this.state;
-    const { height, strokeColor, strokeWidth, fillOpacity } = this.props;
+    const { rX, rY, largeArcFl, sweepFl, x, y} = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
-        <svg className="App-logo" viewBox="0 0 400 400" height={height || 400} xmlns="http://www.w3.org/2000/svg">
-          <path
-            d={`M ${xS} ${yS} A ${rX} ${rY} ${xRot} ${largeArcFl} ${sweepFl} ${x} ${y}`}
-            stroke={strokeColor || 'black'}
-            fillOpacity={fillOpacity || "0"}
-            strokeWidth={strokeWidth || "15"}
-          />
+        <svg className="loading-icon" viewBox="0 0 200 200" height="400" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d={`
+                M 125 100
+                A ${rX} ${rY} 0 ${largeArcFl} ${sweepFl} ${x} ${y}
+                `}
+                stroke="black"
+                fill-opacity="0"
+                stroke-width="5"
+            />
         </svg>
         </header>
       </div>

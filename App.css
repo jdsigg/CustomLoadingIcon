@@ -2,10 +2,19 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 3s linear;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .loading-icon {
+    animation: App-logo-spin infinite 2s linear;
   }
+} */
+
+.loading-icon {
+  transform: rotateZ(-90deg);
 }
 
 .App-header {
